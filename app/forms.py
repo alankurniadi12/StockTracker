@@ -2,4 +2,5 @@ from flask import FlaskForm
 from wtforms import IntegerField, StringField, SubmitField
 
 class StockForm(FlaskForm):
-    pass
+    title = StringField("Title")
+    description = StringField("Description")
