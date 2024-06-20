@@ -3,6 +3,7 @@ from app.forms import StockForm
 from app.models import Stock, User
 import uuid
 from dataclasses import asdict
+from datetime import datetime
 
 pages = Blueprint(
     "pages", 
@@ -24,16 +25,18 @@ def add_stock():
             _id = uuid.uuid4().hex,
             title = form.title.data,
             description= form.description.data,
-            date= form.date.data,
+            # date= datetime.combine(form.date.data, datetime.min.time()),
+            date=int(datetime.combine(form.date.data, datetime.min.time()).timestamp()),
             quantity= form.quantity.data,
             quantity_type= form.quantity_type.data,
             serial_number= form.serial_number,
             to_devision= form.to_devision.data,
             send_by= form.send_by.data,
-            received_by= form.received_by.data
+            received_by= form.received_by.data,
+            remark= form.remark.data
         )
         # asdict = as dictionory (convert dataclass menjadi format psangan nilai-kunci seperti data dari json)
         current_app.db.stock.insert_one(asdict(stock))
         return redirect(url_for(".detail_stock", _id=stock._id))
 
-    return render_template("new_stock.html", title="StockTracker - Tambah Barang", form= form)
+    return render_template("new_stock.html", title="StockTracker - Tambah Barang", form=form)
