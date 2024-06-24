@@ -21,15 +21,15 @@ def add_stock():
     form = StockForm()
     
     if form.validate_on_submit():
+        date = datetime.combine(form.date.data, datetime.min.time())
         stock = Stock(
             _id = uuid.uuid4().hex,
             title = form.title.data,
             description= form.description.data,
-            # date= datetime.combine(form.date.data, datetime.min.time()),
-            date=int(datetime.combine(form.date.data, datetime.min.time()).timestamp()),
+            date= datetime.combine(form.date.data, datetime.now().time()),
             quantity= form.quantity.data,
             quantity_type= form.quantity_type.data,
-            serial_number= form.serial_number,
+            serial_number= form.serial_number.data,
             to_devision= form.to_devision.data,
             send_by= form.send_by.data,
             received_by= form.received_by.data,

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import datetime
 
 
 @dataclass
@@ -14,7 +15,7 @@ class Stock:
     _id: str
     title: str
     description: str
-    date: int
+    date: datetime
     quantity: int
     quantity_type: str
     serial_number: str

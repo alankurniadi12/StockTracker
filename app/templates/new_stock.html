@@ -11,9 +11,23 @@
         <div class="form_container">
             {{ form.hidden_tag() }}
             {{ render_text_field(form.title) }}
-            {{ render_text_field(form.date) }}
+            <div class="form__group">
+                {{ form.date.label(class="form__label") }}
+                {{ form.date(class="form__field") }}
+            </div>
             {{ render_text_field(form.quantity) }}
-            {{ render_text_field(form.quantity_type) }}
+            <div class="form__group">
+                {{ form.quantity_type.label(class="form__label") }}
+                {{ form.quantity_type(class="form__field") }}
+            </div>
+            <!-- <div class="form__group">
+                {{ form.quantity_type.label(class="form__label") }}
+                <select name="unit" class="form__field">
+                    <option value="set">Set</option>
+                    <option value="ea">Ea</option>
+                    <option value="roll">Roll</option>
+                </select>
+            </div> -->
             {{ render_text_field(form.serial_number) }}
             {{ render_text_field(form.to_devision) }}
             {{ render_text_field(form.send_by) }}
