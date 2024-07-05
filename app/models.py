@@ -1,5 +1,7 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
+from typing import List
+from bson import ObjectId
 
 
 @dataclass
@@ -23,5 +25,4 @@ class Stock:
     send_by: str
     received_by: str
     remark: str
-
-
+    images: List[str]

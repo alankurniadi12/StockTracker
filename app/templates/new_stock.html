@@ -1,4 +1,4 @@
-{% from "macros/fields.html" import render_text_field %}
+{% from "macros/fields.html" import render_text_field, render_area_field, render_area_images_field %}
 {% extends "layout.html" %}
 
 
@@ -7,27 +7,51 @@
 {% endblock %}
 
 {% block main_content %}
-    <form name = "add_stock" method="post" novalidate class="form">
-        <div class="form_container">
+    <form name = "add_stock" method="post" enctype="multipart/form-data" novalidate class="form">
+        <div class="form__container">
+            <h1 class="title">{{ texts.new_stock.title }}</h1>
+            <h1 class="sub__title">{{ texts.new_stock.subtitle }}</h1>
             {{ form.hidden_tag() }}
             {{ render_text_field(form.title) }}
-            <div class="form__group">
-                {{ form.date.label(class="form__label") }}
-                {{ form.date(class="form__field form__field--date") }}
-            </div>
+            {{ render_area_field(form.description, 1000)}}
+            {{ render_text_field(form.date) }}
             {{ render_text_field(form.quantity) }}
-            <div class="form__group">
-                {{ form.quantity_type.label(class="form__label") }}
-                {{ form.quantity_type(class="form__field") }}
-            </div>
+            {{ render_text_field(form.quantity_type) }}
             {{ render_text_field(form.serial_number) }}
-            {{ render_text_field(form.to_devision) }}
             {{ render_text_field(form.send_by) }}
             {{ render_text_field(form.received_by) }}
-            {{ render_text_field(form.remark) }}
-            <div>
+            {{ render_text_field(form.to_devision) }}
+            {{ render_area_field(form.remark, 500) }}
+            {{ render_area_images_field(form.images) }}
+            <div class="form__group">
                 {{ form.submit(class="button button--form") }}
             </div>
         </div>
     </form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const descriptionField = document.querySelector('textarea[name="description"]');
+        const remarkField = document.querySelector('textarea[name="remark"]');
+        const descriptionCount = document.getElementById('description-count');
+        const remarkCount = document.getElementById('remark-count');
+
+        function updateCount(field, countElement, maxCount) {
+            field.addEventListener('input', function() {
+                const currentCount = field.value.length;
+                countElement.textContent = `${currentCount}/${maxCount}`;
+            });
+        }
+
+        if (descriptionField && descriptionCount) {
+            updateCount(descriptionField, descriptionCount, 1000);
+        }
+
+        if (remarkField && remarkCount) {
+            updateCount(remarkField, remarkCount, 500);
+        }
+    });
+</script>
 {% endblock %}

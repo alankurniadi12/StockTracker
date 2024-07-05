@@ -1,20 +1,36 @@
 {% macro render_text_field(field) %}
 <div class="form__group">
     {{ field.label(class="form__label") }}
-    {{ field(class="form__field") }}
-
+    {% if field.type == 'DateField' %}
+        {{ field(class="form__field field__date") }}
+    {% else %}
+        {{ field(class="form__field") }}
+    {% endif %}
+    
     {% for error in field.errors %}
         <span class="form__error"> {{ error }}</span>
     {% endfor %}
 </div>
 {% endmacro %}
 
-{% macro render_area_field(field) %}
+{% macro render_area_field(field, max_chars) %}
 <div class="form__group">
     {{ field.label(class_="form__label") }}
-    {{ field(rows=4, class_="form__field", style="resize: none") }}
+    {{ field(class_="form__field field__textarea") }}
+    <small id="{{ field.name}}-count" class="char-count">0/{{ max_chars }}</small>
 
     {%- for error in field.errors %}
+        <span class="form__error">{{ error }}</span>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro render_area_images_field(field) %}
+<div class="form__group">
+    {{ field.label(class="form__label") }}
+    {{ field(class="form__field", multiple=True) }}
+
+    {% for error in field.errors %}
         <span class="form__error">{{ error }}</span>
     {% endfor %}
 </div>

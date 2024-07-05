@@ -1,0 +1,20 @@
+{
+    "new_stock": {
+        "title": "Tambahkan Barang",
+        "subtitle": "Masukan detail barang pada kolom, detail barang akan disimpan ke database"
+    },
+
+    "forms": {
+        "item_name": "Nama Barang",
+        "description": "Keterangan",
+        "date": "Tanggal",
+        "quantity": "Jumlah",
+        "quantity_type": "Satuan",
+        "serial_number": "Nomor Seri",
+        "send_by": "Nama Pengirim",
+        "received_by": "Nama Penerima",
+        "devision": "Devisi Penerima",
+        "remark": "Komentar",
+        "images": "Gambar Barang"
+    }
+}

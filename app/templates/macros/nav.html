@@ -1,33 +1,31 @@
-{% macro header(email) %}
+{% macro header(email, profile_picture) %}
     <header class="header">
         <div class="nav-container">
             <a href="{{ url_for('pages.index') }}" class="header__logo">
-                <!-- svg here for my logo -->
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="logo__icon">
                 <span class="logo__name">Stock Tracker</span>
             </a>
 
-            <nav class="nav"> 
+            <nav class="nav">
                 {% if not email %}
-                    <a href="#" class="nav__link">
+                    <a href="{{ url_for('auth.login') }}" class="nav__link">
                         <span class="nav__item">Masuk</span>
                     </a>
-
-                    <a href="#" class="nav__link">
+                    <a href="{{ url_for('auth.register') }}" class="nav__link">
                         <span class="nav__item">Daftar</span>
                     </a>
                 {% else %}
-                    <!-- "Beranda" akan muncul jika sudah login dan akan terlihat 
-                     aktiv jika URL browser sama dengan url request (/index) -->
                     <a href="{{ url_for('pages.index') }}"
-                    class="nav__link {{
-                    'nav__link--active' if request.path == url_for('pages.index')
-                    }}">
+                       class="nav__link {{ 'nav__link--active' if request.path == url_for('pages.index') }}">
                         <span class="nav__item">Beranda</span>
                     </a>
-
-                    <a href="#" class="nav__link">
-                        <span class="nav__item">Keluar</span>
-                    </a>
+                    <div class="nav__profile">
+                        <img src="{{ profile_picture }}" alt="Profile Picture" class="profile__img">
+                        <div class="profile__dropdown">
+                            <a href="{{ url_for('profile.view') }}" class="profile__link">Profil</a>
+                            <a href="{{ url_for('auth.logout') }}" class="profile__link">Keluar</a>
+                        </div>
+                    </div>
                 {% endif %}
             </nav>
         </div>

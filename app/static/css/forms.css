@@ -3,36 +3,23 @@
   max-width: 50rem;
   border: var(--border);
   font-size: 1.2rem;
-
-  /* An explicit background is required here, as it's actually transparent by default, and we
-       don't want to see the shadow element behind */
   background: var(--background-color);
-
-    /* This shadow is separated from the edges by 0.75rem, and shrunk by 0.2rem on the
-  top and bottom. */
   box-shadow: 0.75rem 0.75rem 0 -0.2rem var(--accent-colour);
+  border-radius: 20px;
 }
 
 .form__container {
   padding: 2.5rem 1.5rem 1.5rem 1.5rem;
 }
 
-/* The following media queries allow for more padding inside the form as the window
-   size increases */
-@media screen and (min-width: 24.75em) {
+/* 480px */
+@media screen and (max-width: 30em) {
   .form__container {
-    padding-left: 2rem;
-  }
-}
-
-@media screen and (min-width: 30em) {
-  .form__container {
-    padding-left: 2.5rem;
+      padding: 0.5rem;
   }
 }
 
 .form__group {
-  /* Surrounds the label and input fields, placing the label above the input */
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
@@ -42,87 +29,80 @@
   margin-left: 2rem;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 .form__field {
-  /* Removes the border and the outline highlight when the text field is in focus */
   outline: none;
-  border: none;
-
-  /* Re-adds a bottom border which will be replaces when the field is in focus. This
-       is going to prevent any jumping when we add the border later */
-  border-bottom: 3px solid #fff;
-
-  /* We have to be explicit about our text fields inheriting font properties */
+  border: 1px solid var(--border-color, #ccc); /* Menambahkan border */
   font-size: inherit;
   font-family: inherit;
-
   padding: 0.75rem 0.5rem;
-  background: var(--background-color);
-
+  background-color: var(--background-color-forms);
   margin-left: 2rem;
   margin-right: 2rem;
   margin-bottom: 0.2rem;
-  border-radius: 15px; /* Tambahkan ini untuk membuat lengkungan */
+  border-radius: 10px; /* Mengubah border-radius */
 }
 
-.form__field--date {
-  width: auto; /* Mengatur lebar otomatis */
-  max-width: 200px; /* Menentukan lebar maksimum untuk field tanggal */
+.field__textarea {
+  height: 6em; /* Tinggi untuk textarea remark */
+  overflow: auto; /* Menambahkan scroll jika konten melebihi tinggi */
 }
 
-/* When the field is in focus, we change the border colour at the bottom to the accent colour */
-.form__field:focus {
-  border-bottom: var(--border);
-}
-
-.form__small {
-  font-size: 0.83rem;
+.char-count {
+  display: block;
+  text-align: right;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
+  margin-right: 2rem;
 }
 
-.form__link {
-  text-decoration: none;
-  color: var(--accent-colour);
+.field__date {
+  width: auto;
+  max-width: 200px;
 }
 
-.form__link:hover {
-  color: #d05656;
+.form__field:focus {
+  border-color: var(--accent-colour); /* Mengubah warna border saat focus */
+  outline: 2px solid var(--accent-colour); /* Menambahkan outline */
+  background-color: var(--background-color);
 }
 
 .form__error {
-  margin-top: 0.5rem;
+  color: var(--text-error);
+  font-size: 18px;
 }
 
-.form__error,
-.form__flash {
-  display: block;
-  padding: 0.5rem;
-  color: var(--text);
-}
-
-.form__error,
-.form__flash--danger {
-  background: var(--accent-colour);
-}
-
-.form__flash {
-  margin: 0.5rem;
-}
-
-.form__flash--success {
-  background: var(--accent-colour-2);
-}
-
-/* Styles specific to the form buttons */
 .button--form {
-  margin: 2rem 2rem 2rem auto;
-  padding: 0.75rem 3rem;
+  margin: 2rem;
   border: none;
-  background: var(--background-color);
-  border-radius: 15px;
+  background: var(--accent-colour);
+  color: var(--text-light);
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .button--form:hover {
-  background: var(--background-color-hover);
+  background: var(--accent-colour-2);
+}
+
+.button {
+  outline: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.75rem;
+  background: var(--accent-colour);
+  color: var(--text-light);
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  transition: background 0.1s ease-in;
+}
+
+.button:hover {
+  background: var(--accent-colour-2);
 }

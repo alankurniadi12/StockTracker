@@ -14,6 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/login.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/register.css') }}"/>
 
     {% block head_content %}
 
@@ -24,15 +27,17 @@
 
 <body>
 
-    {{ header(session.get("email")) }}
+    {{ header(session.get("email"), session.get("profile_picture")) }}
 
     <main class="main">
-        {% block main_content %}
-
+        {% block main_content %} 
         {% endblock %}
     </main>
 
     {{ footer() }}
+
+    {% block scripts %} 
+    {% endblock %}
 </body>
 
 </html>
