@@ -1,20 +1,33 @@
 {
     "new_stock": {
-        "title": "Tambahkan Barang",
-        "subtitle": "Masukan detail barang pada kolom, detail barang akan disimpan ke database"
+        "title_incoming": "Barang Masuk",
+        "subtitle_incoming": "Masukan detail barang masuk",
+        "title_outgoing": "Barang Keluar",
+        "subtitle_outgoing": "Masukkan detail barang keluar"
     },
 
     "forms": {
         "item_name": "Nama Barang",
         "description": "Keterangan",
-        "date": "Tanggal",
+        "date": "Tanggal Masuk",
         "quantity": "Jumlah",
         "quantity_type": "Satuan",
         "serial_number": "Nomor Seri",
-        "send_by": "Nama Pengirim",
-        "received_by": "Nama Penerima",
-        "devision": "Devisi Penerima",
+        "sending_division": "Devisi Pengirim",
+        "receiving_division": "Devisi Penerima",
+        "sender": "Nama Pengirim",
+        "receiver": "Nama Penerima",
         "remark": "Komentar",
-        "images": "Gambar Barang"
+        "images": "Gambar Barang",
+        "submit": "Simpan"
+    },
+
+    "messages": {
+        "item_name_required": "Nama barang tidak boleh kosong",
+        "quantity_required": "Tentukan jumlah barang",
+        "send_by_required": "Nama pengirim tidak boleh kosong",
+        "send_by_required_outgoing": "Nama penerima tidak boleh kosong",
+        "received_by_required": "Nama penerima tidak boleh kosong",
+        "images_required": "Masukan gambar jpg/jpeg/png minimal 1 file"
     }
 }

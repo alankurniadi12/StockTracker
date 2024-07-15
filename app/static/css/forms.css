@@ -85,7 +85,7 @@
 }
 
 .button--form:hover {
-  background: var(--accent-colour-2);
+  background: var(--color-button-hover);
 }
 
 .button {
@@ -101,8 +101,4 @@
   border: none;
   border-radius: 10px;
   transition: background 0.1s ease-in;
-}
-
-.button:hover {
-  background: var(--accent-colour-2);
 }

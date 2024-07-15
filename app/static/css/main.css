@@ -8,7 +8,7 @@
     --accent-colour-2: #3bb54a;
     --tag-colour: #e5e5e5;
     --border: 2px solid #b2b2b2;
-    --background-color-hover: #bdd1eb;
+    --color-button-hover: #b35353;
     --background-color-forms: #f0f0f0;
 }
 
@@ -53,15 +53,48 @@ html {
     cursor: pointer;
     font-size: inherit;
     font-family: inherit;
-    padding: 0.75rem;
-    background: var(--background-color);
-    color: var(--text-dark);
+    padding: 0.75rem 1rem;
+    background: var(--accent-colour);
+    color: var(--text-light);
     border: none;
+    border-radius: 5px;
     transition: background 0.1s ease-in;
+    text-align: center;
+    text-decoration: none;
 }
 
 .button:hover {
-    background: var(--background-color-hover);
+    background: var(--color-button-hover);
+}
+
+.button--floating {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: var(--accent-colour);
+    color: var(--text-light);
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    border-radius: 50%;
+    transition: background 0.1s ease-in;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-decoration: none;
+}
+
+.button--floating span {
+    margin: 0;
+    line-height: 1;
+}
+
+.button--floating:hover {
+    background: var(--color-button-hover);
 }
 
 .link {
@@ -86,4 +119,66 @@ html {
     font-size: 18px;
     color: var(--text-muted);
     text-align: center;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: var(--background-color);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.popup h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+
+.button--action {
+    display: block;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background: var(--accent-colour);
+    color: var(--text-light);
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.1s ease-in;
+}
+
+.button--action:hover {
+    background: var(--accent-colour-2);
+}
+
+.hidden {
+    display: none;
+}
+
+.close-popup {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-dark);
 }

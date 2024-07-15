@@ -1,4 +1,4 @@
-from flask import flash, Blueprint, render_template, current_app, redirect, url_for
+from flask import flash, Blueprint, render_template, current_app, redirect, url_for, request
 from werkzeug.utils import secure_filename
 from app.forms import StockForm
 from app.models import Stock, User
@@ -20,7 +20,8 @@ def index():
 
 @pages.route("/add", methods=["GET", "POST"])
 def add_stock():
-    form = StockForm()
+    page_type = request.args.get('type', 'incoming')
+    form = StockForm(page_type=page_type)
     
     if form.validate_on_submit():
 
@@ -37,21 +38,42 @@ def add_stock():
                 file.save(os.path.join(upload_folder, unique_filename))
                 image_paths.append(unique_filename)
 
-        stock = Stock(
+
+        if page_type != 'incoming':
+            stock = Stock(
             _id = uuid.uuid4().hex,
+            is_in_coming = False,
             title = form.title.data,
             description = form.description.data,
             date = date,
             quantity = form.quantity.data,
             quantity_type = form.quantity_type.data,
             serial_number = form.serial_number.data,
-            to_devision = form.to_devision.data,
-            send_by = form.send_by.data,
-            received_by = form.received_by.data,
+            receivery = form.receivery.data,
+            sender = form.sender.data,
+            devision = form.devision.data,
             remark = form.remark.data,
             images = image_paths
-        )
-        current_app.db.stock.insert_one(stock.__dict__)
+            )
+            current_app.db.stock.insert_one(stock.__dict__)
+        else:
+            stock = Stock(
+            _id = uuid.uuid4().hex,
+            is_in_coming = True,
+            title = form.title.data,
+            description = form.description.data,
+            date = date,
+            quantity = form.quantity.data,
+            quantity_type = form.quantity_type.data,
+            serial_number = form.serial_number.data,
+            devision = form.devision.data,
+            sender = form.sender.data,
+            receivery = form.receivery.data,
+            remark = form.remark.data,
+            images = image_paths
+            )
+            current_app.db.stock.insert_one(stock.__dict__)
+
         return redirect(url_for(".index"))
 
-    return render_template("new_stock.html", title="StockTracker - Tambah Barang", form=form)
+    return render_template("add_stock.html", title="StockTracker - Tambah Barang", form=form, page_type=page_type)

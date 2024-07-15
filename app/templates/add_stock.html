@@ -1,0 +1,77 @@
+{% from "macros/fields.html" import render_text_field, render_area_field, render_area_images_field %}
+{% extends "layout.html" %}
+
+
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}"/>
+{% endblock %}
+
+{% block main_content %}
+    <form name = "add_stock" method="post" enctype="multipart/form-data" novalidate class="form">
+        <div class="form__container">
+            
+            {% set page_type = request.args.get('type', 'incoming') %}
+            
+            {% if page_type == 'incoming' %}
+                <h1 class="title">{{ texts.new_stock.title_incoming }}</h1>
+                <h1 class="sub__title">{{ texts.new_stock.subtitle_incoming }}</h1>
+                {{ form.hidden_tag() }}
+                {{ render_text_field(form.title) }}
+                {{ render_area_field(form.description, 1000)}}
+                {{ render_text_field(form.date) }}
+                {{ render_text_field(form.quantity) }}
+                {{ render_text_field(form.quantity_type) }}
+                {{ render_text_field(form.serial_number) }}
+                {{ render_text_field(form.devision) }}
+                {{ render_text_field(form.sender_text) }}
+                {{ render_text_field(form.receivery_select) }}
+                {{ render_area_field(form.remark, 500) }}
+                {{ render_area_images_field(form.images) }}
+            {% else %}
+                <h1 class="title">{{ texts.new_stock.title_outgoing }}</h1>
+                <h1 class="sub__title">{{ texts.new_stock.subtitle_outgoing }}</h1>
+                {{ form.hidden_tag() }}
+                {{ render_text_field(form.title) }}
+                {{ render_area_field(form.description, 1000)}}
+                {{ render_text_field(form.date) }}
+                {{ render_text_field(form.quantity) }}
+                {{ render_text_field(form.quantity_type) }}
+                {{ render_text_field(form.serial_number) }}
+                {{ render_text_field(form.sender_select) }}
+                {{ render_text_field(form.receivery_text) }}
+                {{ render_text_field(form.devision) }}
+                {{ render_area_field(form.remark, 500) }}
+                {{ render_area_images_field(form.images) }}
+            {% endif %}
+            <div class="form__group">
+                {{ form.submit(class="button button--form") }}
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const descriptionField = document.querySelector('textarea[name="description"]');
+        const remarkField = document.querySelector('textarea[name="remark"]');
+        const descriptionCount = document.getElementById('description-count');
+        const remarkCount = document.getElementById('remark-count');
+
+        function updateCount(field, countElement, maxCount) {
+            field.addEventListener('input', function() {
+                const currentCount = field.value.length;
+                countElement.textContent = `${currentCount}/${maxCount}`;
+            });
+        }
+
+        if (descriptionField && descriptionCount) {
+            updateCount(descriptionField, descriptionCount, 1000);
+        }
+
+        if (remarkField && remarkCount) {
+            updateCount(remarkField, remarkCount, 500);
+        }
+    });
+</script>
+{% endblock %}

@@ -15,14 +15,15 @@ class User:
 @dataclass
 class Stock:
     _id: str
+    is_in_coming: bool
     title: str
     description: str
     date: datetime
     quantity: int
     quantity_type: str
     serial_number: str
-    to_devision: str
-    send_by: str
-    received_by: str
+    devision: str
+    sender: str
+    receivery: str
     remark: str
     images: List[str]
