@@ -14,9 +14,6 @@ from flask_wtf.file import FileAllowed, MultipleFileField
 from datetime import datetime
 from .text_loaders import TextLoader
 
-
-def get_text(key):
-    return current_app.config['TEXTS']['forms'][key]
 class StockForm(FlaskForm):
     title = StringField(validators=[])
     description = TextAreaField(validators=[Length(max=1000)])

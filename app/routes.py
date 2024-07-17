@@ -16,6 +16,7 @@ pages = Blueprint(
 
 @pages.route("/")
 def index():
+    page = request.args.get('page')
     return render_template("index.html", title="Stock Tracker")
 
 @pages.route("/add", methods=["GET", "POST"])
