@@ -1,4 +1,9 @@
 {
+    "main": {
+        "next": "Berikutnya",
+        "previous": "Sebelumnya"
+    },
+
     "new_stock": {
         "title_incoming": "Barang Masuk",
         "subtitle_incoming": "Masukan detail barang masuk",

@@ -68,6 +68,23 @@ html {
 }
 
 .button--floating {
+    /* position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+
     position: fixed;
     bottom: 2rem;
     right: 2rem;
@@ -94,6 +111,7 @@ html {
 }
 
 .button--floating:hover {
+    /* background-color: #0056b3; */
     background: var(--color-button-hover);
 }
 
@@ -134,14 +152,18 @@ html {
     z-index: 1000;
 }
 
+.popup.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
 .popup-content {
-    background: var(--background-color);
-    padding: 2rem;
-    border-radius: 10px;
     text-align: center;
+    background-color: white;
+    padding: 60px;
+    border-radius: 15px;
     position: relative;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .popup h2 {
@@ -152,20 +174,19 @@ html {
 }
 
 .button--action {
-    display: block;
-    margin: 1rem 0;
-    padding: 0.5rem 1rem;
-    background: var(--accent-colour);
-    color: var(--text-light);
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--accent-colour);
+    color: white;
+    border-radius: 8px;
     text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.1s ease-in;
+    margin-top: 10px;
+    transition: background-color 0.3s;
 }
 
 .button--action:hover {
-    background: var(--color-button-hover);
+    background-color: var(--color-button-hover);
+    transform: translateY(-3px);
 }
 
 .hidden {
@@ -174,11 +195,108 @@ html {
 
 .close-popup {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 10px;
+    right: 10px;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 20px;
     cursor: pointer;
-    color: var(--text-dark);
+    color: #888;
+}
+
+.close-popup:hover {
+    color: #333;
+}
+
+.list_container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.list_item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+    border: 2px solid rgb(229, 228, 228);
+}
+
+.list_item:hover {
+    transform: translateY(-5px);
+}
+
+.list_image {
+    margin: 10px;
+}
+
+.list_image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 3px solid #ddd;
+    border-radius: 8px;
+}
+
+.list_info {
+    flex: 1;
+    padding: 10px;
+}
+
+.list_info h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.list_info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.list_status {
+    flex: 0 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.incoming {
+    background-color: #28a745;
+}
+
+.outgoing {
+    background-color: #dc3545;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination a, .pagination strong {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
 }

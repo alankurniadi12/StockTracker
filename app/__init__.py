@@ -1,4 +1,5 @@
 import os
+import logging
 from flask import Flask
 from app.routes import pages
 from dotenv import load_dotenv
@@ -7,6 +8,9 @@ from app.auth.routes import auth
 from app.utils import load_texts
 
 load_dotenv()
+
+# Atur level logging dan formatnya (hanya perlu dilakukan sekali, bisa di file utama aplikasi)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s:%(message)s')
 
 def create_app():
     app = Flask(__name__)
