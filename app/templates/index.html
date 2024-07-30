@@ -8,28 +8,30 @@
 <div class="list_container">
     {% if total_stock > 0 %}
         {% for stock in stocks %}
-        <div class="list_item">
-            <div class="list_image">
-                {% if stock.images %}
-                    <img src="{{ url_for('static', filename='media/images/' ~ stock.images[0]) }}" alt="Stock Image">
-                {% else %}
-                    <img src="{{ url_for('static', filename='media/images/no_image_default.jpg') }}" alt="Default Image">
-                {% endif %}
+        <a href="{{ url_for('pages.stock_detail', id = stock._id) }}" class="list_item-link">
+            <div class="list_item {% if stock.is_in_coming %}incoming{% else %}outgoing{% endif %}">
+                <div class="list_image">
+                    {% if stock.images %}
+                        <img src="{{ url_for('static', filename='media/images/' ~ stock.images[0]) }}" alt="Stock Image">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='media/images/no_image_default.jpg') }}" alt="Default Image">
+                    {% endif %}
+                </div>
+                <div class="list_info">
+                    <h3>{{ stock.title }}</h3>
+                    <p>{{ stock.date.strftime('%Y-%m-%d') }}</p>
+                    <p>Pengirim: {{ stock.sender }}</p>
+                    <p>Penerima: {{ stock.receivery }}</p>
+                </div>
+                <div class="list_status">
+                    {% if stock.is_in_coming %}
+                        <span class="status in">Masuk</span>
+                    {% else %}
+                        <span class="status out">Keluar</span>
+                    {% endif %}
+                </div>
             </div>
-            <div class="list_info">
-                <h3>{{ stock.title }}</h3>
-                <p>{{ stock.date.strftime('%Y-%m-%d') }}</p>
-                <p>Pengirim: {{ stock.sender }}</p>
-                <p>Penerima: {{ stock.receivery }}</p>
-            </div>
-            <div class="list_status">
-                {% if stock.is_in_coming %}
-                    <span class="status incoming">Masuk</span>
-                {% else %}
-                    <span class="status outgoing">Keluar</span>
-                {% endif %}
-            </div>
-        </div>
+        </a>
         {% endfor %}
 
         <div class="pagination">

@@ -1,6 +1,6 @@
 import os
 import logging
-from flask import Flask
+from flask import Flask, session
 from app.routes import pages
 from dotenv import load_dotenv
 from pymongo import MongoClient

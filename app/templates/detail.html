@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block head_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detail.css') }}">
+{% endblock %}
+
+{% block main_content %}
+<div class="detail-container">
+    <div class="detail-header">
+        <h1>{{ stock.title }}</h1>
+        <span class="status {% if stock.is_in_coming %}in{% else %}out{% endif %}">
+            {% if stock.is_in_coming %}Masuk{% else %}Keluar{% endif %}
+        </span>
+    </div>
+
+    <div class="detail-body">
+        <div class="detail-images">
+            {% if stock.images %}
+                {% for image in stock.images %}
+                    <img src="{{ url_for('static', filename='media/images/' ~ image) }}" alt="Stock Image">
+                {% endfor %}
+            {% else %}
+                <img src="{{ url_for('static', filename='media/images/no_image_default.jpg') }}" alt="Default Image">
+            {% endif %}
+        </div>
+
+        <div class="detail-info">
+            <p><strong>Deskripsi:</strong> {{ stock.description }}</p>
+            <p><strong>Tanggal:</strong> {{ stock.date.strftime('%Y-%m-%d') }}</p>
+            <p><strong>Jumlah:</strong> {{ stock.quantity }} {{ stock.quantity_type }}</p>
+            <p><strong>Pengirim:</strong> {{ stock.sender }}</p>
+            <p><strong>Penerima:</strong> {{ stock.receivery }}</p>
+            <p><strong>Remark:</strong> {{ stock.remark }}</p>
+        </div>
+    </div>
+
+    <div class="detail-footer">
+        <a href="#" class="button">Edit</a>
+        <a href="#" class="button" id="delButton">Hapus</a>
+        <a href="{{ url_for('pages.test_flash') }}" class="button">Kembali</a>
+    </div>
+</div>
+
+<div id="popup" class="popup hidden">
+    <div class="popup-content">
+        <button id="closePopup" class="close-popup">&times;</button>
+        <h2>Anda yakin ingin menghapus?</h2>
+        <a href="{{ url_for('pages.delete_stock', id= stock._id) }}" class="button">Hapus</a>
+        <button id="closePopupButton" class="button">Tidak</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const delButton = document.getElementById('delButton');
+        const popup = document.getElementById('popup');
+        const closePopup = document.getElementById('closePopup');
+        const closePopupButton = document.getElementById('closePopupButton')
+
+        delButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            popup.classList.remove('hidden');
+        });
+
+        closePopup.addEventListener('click', function() {
+            popup.classList.add('hidden');
+        });
+
+        closePopupButton.addEventListener('click', function() {
+            popup.classList.add('hidden');
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == popup) {
+                popup.classList.add('hidden');
+            }
+        });
+    });
+</script>
+{% endblock %}

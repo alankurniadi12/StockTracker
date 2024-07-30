@@ -14,7 +14,7 @@
 
 .main {
     flex-grow: 1;
-    padding: 3rem 1.5rem 2rem 1.5rem;
+    padding: 5rem 1.5rem 2rem 1.5rem;
 }
 
 .body {
@@ -37,13 +37,19 @@ html {
     font-size: 18px;
 }
 
+@media screen and (max-width: 768px) {
+    .main {
+        padding-top: 4rem; /* Sesuaikan dengan tinggi header pada perangkat kecil */
+    }
+}
+
 /* 480px */
 @media screen and (max-width: 30em) {
     html {
         font-size: 14px;
     }
     .main {
-        padding-top: 3em;
+        padding-top: 4rem;
     }
 }
 
@@ -68,23 +74,6 @@ html {
 }
 
 .button--floating {
-    /* position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
-
     position: fixed;
     bottom: 2rem;
     right: 2rem;
@@ -208,6 +197,11 @@ html {
     color: #333;
 }
 
+.list_item-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .list_container {
     max-width: 800px;
     margin: 0 auto;
@@ -271,15 +265,22 @@ html {
     padding: 5px 10px;
     border-radius: 20px;
     font-size: 12px;
-    color: #fff;
 }
 
 .incoming {
-    background-color: #28a745;
+    color: var(--text-muted);
 }
 
 .outgoing {
-    background-color: #dc3545;
+    color: var(--text-muted);
+}
+
+.status.in {
+    border: 2px solid var(--accent-colour-2);
+}
+
+.status.out {
+    border: 2px solid var(--text-error);
 }
 
 .pagination {
@@ -299,4 +300,104 @@ html {
 
 .pagination a:hover {
     background-color: #ddd;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .list_item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .list_image img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .list_info {
+        padding: 10px;
+    }
+
+    .list_info h4 {
+        font-size: 16px;
+    }
+
+    .list_info p {
+        font-size: 12px;
+    }
+
+    .list_status {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 5px 10px;
+    }
+
+    .status {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .list_item {
+        padding: 10px;
+    }
+
+    .list_image img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .list_info {
+        padding: 5px;
+    }
+
+    .list_info h4 {
+        font-size: 14px;
+    }
+
+    .list_info p {
+        font-size: 10px;
+    }
+
+    .list_status {
+        padding: 5px;
+    }
+
+    .status {
+        font-size: 8px;
+        padding: 2px 4px;
+    }
+
+    .button--floating {
+        bottom: 1rem;
+        right: 1rem;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.5rem;
+    }
+}
+
+.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.flashes li {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.flashes .message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.flashes .error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }

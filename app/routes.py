@@ -19,7 +19,7 @@ pages = Blueprint(
 @pages.route("/")
 def index():
     page = request.args.get('page', 1, type= int)
-    per_page = 10
+    per_page = 3
     stock_collection = current_app.db.stock
 
     stocks = stock_collection.find().sort('date', pymongo.DESCENDING).skip((page - 1) * per_page).limit(per_page)
@@ -34,18 +34,17 @@ def index():
         per_page= per_page
     )
 
+@pages.route("/test_flash")
+def test_flash():
+    flash('Flash berhasil ditampilkan', 'message')
+    return redirect(url_for(".index"))
+
 @pages.route("/add", methods=["GET", "POST"])
 def add_stock():
-    logging.debug("add_stock RUNNING...")
     page_type = request.args.get('type', 'incoming')
     form = StockForm(page_type=page_type)
-
-    logging.debug("routes.py Form request data: %s", request.form)
-    logging.debug("routes.py Form data: %s", form.data)
     
     if form.validate_on_submit():
-        logging.debug("Form data setelah valid: %s", form.data)
-
         date = datetime.combine(form.date.data, datetime.now().time())
 
         image_paths = []
@@ -58,7 +57,6 @@ def add_stock():
                 unique_filename = f"{uuid.uuid4().hex}_{filename}"
                 file.save(os.path.join(upload_folder, unique_filename))
                 image_paths.append(unique_filename)
-
 
         stock_data = {
             "_id": uuid.uuid4().hex,
@@ -76,8 +74,6 @@ def add_stock():
             "is_in_coming": page_type == 'incoming'
         }
 
-        logging.debug("Stock data to be inserted: %s", stock_data)
-
         try:
             current_app.db.stock.insert_one(stock_data)
             logging.debug("Stock data inserted successfully")
@@ -92,3 +88,24 @@ def add_stock():
         logging.debug("Form errors: %s", form.errors)
 
     return render_template("add_stock.html", title="StockTracker - Tambah Barang", form=form, page_type=page_type)
+
+
+@pages.route("/stock/detail/<string:id>")
+def stock_detail(id):
+    logging.debug("ID at detail pege: %s", id)
+    
+    stock_detail = current_app.db.stock.find_one({"_id": id})
+    logging.debug("Data get by ID: %s", stock_detail)
+    return render_template("detail.html", stock=stock_detail)
+
+
+@pages.route("/delete/detail/<string:id>")
+def delete_stock(id):
+    result_deleted = current_app.db.stock.delete_one({'_id': id})
+    if result_deleted.deleted_count == 1:
+        flash('Data berhasil dihapus')
+        return redirect(url_for(".index"))
+    else:
+        flash('Data tidak berhasil dihapus', 'error')
+
+    return redirect(url_for('pages.stock_detail', id = id))

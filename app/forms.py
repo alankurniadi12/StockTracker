@@ -24,10 +24,18 @@ class StockForm(FlaskForm):
     serial_number = StringField()
     devision = SelectField (
         choices=[
-            ('ict', 'ICT'), 
-            ('radio-room', 'Radio Room'), 
-            ('csr', 'CSR'),
-            
+            ('ICT', 'ICT'), 
+            ('ICT Jakarta', 'ICT Jakarta'), 
+            ('Radio Room', 'Radio Room'), 
+            ('Produksi', 'Produksi'),
+            ('Electric', 'Electric'),
+            ('Instrument', 'Instrument'),
+            ('Mechanic', 'Mechanic'),
+            ('SHE', 'SHE'),
+            ('Camp', 'Camp'),
+            ('Facilities', 'Facilities'),
+            ('GPA', 'GPA'),
+            ('Laboratorium', 'Laboratorium')
         ]
     )
     sender_text = StringField()
