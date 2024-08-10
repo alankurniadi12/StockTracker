@@ -1,4 +1,4 @@
-from flask import flash, Blueprint, render_template, current_app, redirect, url_for, request
+from flask import Flask, flash, Blueprint, render_template, current_app, redirect, url_for, request
 from werkzeug.utils import secure_filename
 from app.forms import StockForm
 from app.models import Stock, User
@@ -19,7 +19,7 @@ pages = Blueprint(
 @pages.route("/")
 def index():
     page = request.args.get('page', 1, type= int)
-    per_page = 3
+    per_page = 20
     stock_collection = current_app.db.stock
 
     stocks = stock_collection.find().sort('date', pymongo.DESCENDING).skip((page - 1) * per_page).limit(per_page)
@@ -92,18 +92,16 @@ def add_stock():
 
 @pages.route("/stock/detail/<string:id>")
 def stock_detail(id):
-    logging.debug("ID at detail pege: %s", id)
-    
     stock_detail = current_app.db.stock.find_one({"_id": id})
     logging.debug("Data get by ID: %s", stock_detail)
     return render_template("detail.html", stock=stock_detail)
 
 
-@pages.route("/delete/detail/<string:id>")
-def delete_stock(id):
+@pages.route("/delete/detail/<string:id>/<string:title>")
+def delete_stock(id, title):
     result_deleted = current_app.db.stock.delete_one({'_id': id})
     if result_deleted.deleted_count == 1:
-        flash('Data berhasil dihapus')
+        flash(f'{title} Berhasil dihapus', 'success')
         return redirect(url_for(".index"))
     else:
         flash('Data tidak berhasil dihapus', 'error')

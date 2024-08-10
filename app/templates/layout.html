@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/login.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/register.css') }}"/>
-
+    
     {% block head_content %}
 
     {% endblock %}
@@ -28,19 +28,25 @@
 <body>
 
     {{ header(session.get("email"), session.get("profile_picture")) }}
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="flashes">
-            {% for category, message in messages %}
-                <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
     
     <main class="main">
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                        <button class="close-btn">&times;</button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
         {% block main_content %} 
+
         {% endblock %}
     </main>
 
@@ -49,6 +55,19 @@
 
     {{ footer() }}
 
-</body>
+    <script>
+        setTimeout(function(){
+            const flashMessages = document.getElementById('flash-messages');
+            if (flashMessages) {
+                flashMessages.style.display = 'none';
+            }
+        }, 5000);
 
+        document.querySelectorAll('.flash .close-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.parentElement.style.display = 'none';
+            });
+        });
+    </script>
+</body>
 </html>

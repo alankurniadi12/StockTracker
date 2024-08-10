@@ -17,7 +17,7 @@ import logging
 
 class StockForm(FlaskForm):
     title = StringField(validators=[])
-    description = TextAreaField(validators=[Length(max=1000)])
+    description = TextAreaField(validators=[Length(max=5000)])
     date = DateField(format='%Y-%m-%d', default=datetime.today )
     quantity = IntegerField(validators=[])
     quantity_type = SelectField(choices=[('set', 'Set'), ('ea', 'Ea'), ('roll', 'Roll')])
@@ -42,13 +42,12 @@ class StockForm(FlaskForm):
     sender_select = SelectField(choices=[('Irwan', 'Irwan'), ('Suhendri', 'Suhendri')])
     receivery_select = SelectField(choices=[('Irwan', 'Irwan'), ('Suhendri', 'Suhendri')])
     receivery_text = StringField()
-    remark = TextAreaField([validators.Length(max=500)])
+    remark = TextAreaField(validators=[Length(max=1000)])
     images = MultipleFileField(validators=[])
     submit = SubmitField()
 
     def __init__(self, page_type, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        logging.debug("StockForm RUNNING= %s", page_type)
         self.title.label.text = TextLoader.get_text('item_name')
         self.title.validators = [DataRequired(message=TextLoader.get_message('item_name_required'))]
 
