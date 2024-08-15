@@ -16,14 +16,21 @@ pages = Blueprint(
     static_folder="static"
 )
 
-@pages.route("/")
+@pages.route("/", methods=["GET", "POST"])
 def index():
     page = request.args.get('page', 1, type= int)
     per_page = 20
-    stock_collection = current_app.db.stock
+    search_query = request.args.get('search', '')
 
-    stocks = stock_collection.find().sort('date', pymongo.DESCENDING).skip((page - 1) * per_page).limit(per_page)
-    total_stock = current_app.db.stock.count_documents({})
+    stock_collection = current_app.db.stock
+    query = {}
+
+    if search_query:
+        query['title'] = {'$regex': search_query, '$options': 'i'}
+        
+
+    stocks = stock_collection.find(query).sort('date', pymongo.DESCENDING).skip((page - 1) * per_page).limit(per_page)
+    total_stock = current_app.db.stock.count_documents(query)
 
     return render_template(
         "index.html",
@@ -31,7 +38,8 @@ def index():
         stocks= stocks,
         total_stock= total_stock,
         page= page,
-        per_page= per_page
+        per_page= per_page,
+        search_query = search_query
     )
 
 @pages.route("/test_flash")

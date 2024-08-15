@@ -204,7 +204,7 @@ html {
 
 .list_container {
     max-width: 1020px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 10px;
 }
 
@@ -413,3 +413,53 @@ html {
     cursor: pointer;
     color: inherit;
 }
+
+.search-filter {
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+    height: 150px; /* Ubah sesuai kebutuhan */
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: sticky;
+    top: 5rem;
+    z-index: 900;
+
+    border-radius: 8px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(229, 228, 228);
+}
+
+form.form_search {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    
+}
+
+form.form_search input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    background: var(--background-color-forms);
+    width: 300px; /* Ubah ukuran sesuai kebutuhan */
+    border-radius: 8px 0px 0px 8px;
+  }
+  
+  form.form_search button {
+    padding: 10px;
+    background: var(--accent-colour);
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+    border-radius: 0px 8px 8px 0px;
+  }
+  
+  form.form_search button:hover {
+    background: var(--color-button-hover);
+  }
