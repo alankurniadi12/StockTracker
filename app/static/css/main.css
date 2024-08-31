@@ -415,41 +415,40 @@ html {
 }
 
 .search-filter {
+    display: grid;
+    grid-template-areas: 
+        'cover cover cover cover cover cover'
+        'search search search search search search'
+        'byname bydate bydate bydate bydate bydate'
+        'result result result result result result';
     max-width: 1200px;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 10px;
-    height: 150px; /* Ubah sesuai kebutuhan */
     background-color: var(--background-color);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    position: sticky;
-    top: 5rem;
-    z-index: 900;
-
-    border-radius: 8px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     border: 2px solid rgb(229, 228, 228);
+    margin: 0px auto;
+    border-radius: 8px;
 }
 
-form.form_search {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    
+.img-cover {
+    grid-area: cover;
+    border-radius: 8px 8px 0px 0px;
+}
+.form_search { 
+    grid-area: search; 
+    margin-top: 30px;
+    margin-left: 20px;
 }
 
-form.form_search input[type=text] {
+.form_search input[type=text] {
     padding: 10px;
+    width: 100%;
+    max-width: 525px;
     font-size: 17px;
     border: 1px solid grey;
     background: var(--background-color-forms);
-    width: 300px; /* Ubah ukuran sesuai kebutuhan */
     border-radius: 8px 0px 0px 8px;
   }
   
-  form.form_search button {
+.form_search button {
     padding: 10px;
     background: var(--accent-colour);
     color: white;
@@ -460,6 +459,60 @@ form.form_search input[type=text] {
     border-radius: 0px 8px 8px 0px;
   }
   
-  form.form_search button:hover {
+.form_search button:hover {
     background: var(--color-button-hover);
   }
+
+.form_filter_byname { 
+    grid-area: byname;
+    min-width: 0px;
+    margin: 15px 0px 15px 20px;
+}
+
+.form_filter_byname select {
+    padding: 10px;
+    border: 1px solid grey;
+    background: var(--background-color-forms);
+    border-radius: 8px;
+}
+
+.form_filter_bydate { 
+    grid-area: bydate; 
+    margin: 15px 0px 15px 0px;
+}
+
+.form_filter_bydate input {
+    padding: 8px;
+    border: 1px solid grey;
+    background: var(--background-color-forms);
+    border-radius: 8px;
+}
+.result-filter {
+    grid-area: result;
+    display: flex;
+    margin: 0px 0px 15px 20px;
+}
+
+.result-filter p {
+    color: var(--text-muted);
+}
+
+.result-total {
+    width: 100%;
+    max-width: 100px;
+    margin-top: 10px;
+}
+
+.show-result {
+    min-width: 0px;
+    margin-top: 10px;
+}
+
+.reset-filter {
+    width: 100%;
+    margin-left: 50px;
+    max-width: 130px;
+    margin-top: 5px;
+    padding: 5px 0px 5px 0px;
+    text-decoration: none;
+}

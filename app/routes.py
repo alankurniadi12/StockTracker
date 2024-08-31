@@ -20,17 +20,29 @@ pages = Blueprint(
 def index():
     page = request.args.get('page', 1, type= int)
     per_page = 20
-    search_query = request.args.get('search', '')
-
     stock_collection = current_app.db.stock
-    query = {}
 
+    search_query = request.args.get('search', '')
+    receivery_filter = request.args.get('receivery')
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+
+    
+    query = {}
     if search_query:
         query['title'] = {'$regex': search_query, '$options': 'i'}
-        
 
+    if receivery_filter:
+        query['receivery'] = receivery_filter
+    if start_date and end_date:
+        query['date'] = {'$gt': datetime.strptime(start_date, '%Y-%m-%d'),
+                         '$lte': datetime.strptime(end_date, '%Y-%m-%d')}
+        
     stocks = stock_collection.find(query).sort('date', pymongo.DESCENDING).skip((page - 1) * per_page).limit(per_page)
     total_stock = current_app.db.stock.count_documents(query)
+
+    logging.info("Count total stock; %s", total_stock)
+    logging.info("Query; %s", query)
 
     return render_template(
         "index.html",
@@ -39,7 +51,10 @@ def index():
         total_stock= total_stock,
         page= page,
         per_page= per_page,
-        search_query = search_query
+        search_query = search_query,
+        receivery_filter = receivery_filter,
+        start_date = start_date,
+        end_date = end_date
     )
 
 @pages.route("/test_flash")

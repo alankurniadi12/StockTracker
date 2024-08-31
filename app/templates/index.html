@@ -8,10 +8,55 @@
 {% block main_content %}
 
 <div class="search-filter">
+
+    <img class="img-cover" src="{{ url_for('static', filename='media/main-cover.jpg')}}" alt="main cover">
+
     <form class="form_search" action="{{ url_for('pages.index') }}" method="get">
         <input type="text" placeholder="Nama barang..." name="search">
         <button type="submit"><i class="fa fa-search"></i></button>
     </form>
+
+    <!-- Filters -->
+    <form class="form_filter_byname" id="filterFormByName">
+        <!-- Filter by Receiver -->
+        <select name="receivery" onchange="submitFilterFormByName()">
+            <option value="">Penerima</option>
+            <option value="Irwan" {% if request.args.get('receivery') == 'Irwan' %}selected{% endif %}>Irwan</option>
+            <option value="Suhendri" {% if request.args.get('receivery') == 'Suhendri' %}selected{% endif %}>Suhendri</option>
+        </select>
+    </form>
+
+    <form class="form_filter_bydate" id="filterFormByDate">
+        <!-- Filter by Date Range -->
+        <label for="start_date">Tanggal:</label>
+        <input type="date" id="start_date" name="start_date" value="{{ request.args.get('start_date', '') }}" onchange="submitFilterFormByDate()">
+        <label for="end_date">-</label>
+        <input type="date" id="end_date" name="end_date" value="{{ request.args.get('end_date', '') }}" onchange="submitFilterFormByDate()">
+    </form>
+
+    <div class="result-filter">
+        <div class="result-total"><p>Total:{{total_stock}}</p></div>
+        
+        <div class="show-result">
+            {% if search_query %}
+                <p>Mencari: <strong>{{ search_query }}</strong>  
+            {% endif %}
+
+            {% if receivery_filter %}
+                <p>Penertima: <strong>{{ receivery_filter }}</strong></p>
+            {% endif %}
+
+            {% if start_date and end_date %}
+                <p>Tanggal: <strong>{{ start_date }}</strong> - <strong>{{ end_date }}</strong></p>
+            {% endif %}
+        </div>
+
+        {% if search_query or receivery_filter or (start_date and end_date) %}
+            <a href="{{ url_for('pages.index') }}" class="button reset-filter">Atur Ulang</a>
+        {% endif %}
+
+    </div>
+
 </div>
 
 <div class="list_container">
@@ -104,5 +149,13 @@
             }
         });
     });
+
+    function submitFilterFormByName() {
+        document.getElementById('filterFormByName').submit();
+    }
+
+    function submitFilterFormByDate() {
+        document.getElementById('filterFormByDate').submit();
+    }
 </script>
 {% endblock %}
